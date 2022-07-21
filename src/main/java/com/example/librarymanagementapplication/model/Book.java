@@ -18,7 +18,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class User {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
