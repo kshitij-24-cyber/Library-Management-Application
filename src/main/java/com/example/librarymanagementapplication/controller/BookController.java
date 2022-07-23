@@ -13,8 +13,7 @@ import com.example.librarymanagementapplication.repository.UserRepository;
 import com.example.librarymanagementapplication.util.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -29,8 +28,8 @@ public class BookController {
 
     BookValidator bookValidator = new BookValidator();
 
-   // this api will fetch all the books stored in the database by the user
-    @GetMapping("/books")
+    // this API will fetch all the books stored in the database by the user
+    @GetMapping("/GetAllbooks")
     List<Book> findAllBooks() {
         List<Book> list = new ArrayList<>();
         try {
@@ -44,5 +43,40 @@ public class BookController {
         return list;
     }
 
+    // this API will addBook to the Database
+    @PostMapping("/AddBook")
+    @ResponseStatus(HttpStatus.CREATED)
+    Book newBook(@RequestBody Book newBook) {
+        if (bookValidator.isValid(newBook)) {
+            return booksRepository.save(newBook);
+        } else {
+            return null;
+        }
+    }
+
+    // this API will search all  the book from the database by the book Author name
+    @GetMapping(value = "/searchBookByAuthor")
+    public List<Book> searchBookByAuthor(@RequestParam(value = "q") String author) {
+        List<Book> books = booksRepository.findAll();
+        ArrayList<Book> list = new ArrayList<Book>();
+        for (Book book : books) {
+            if (book.getAuthor().equals(author)) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
+
+    @GetMapping(value = "/searchBookByGenre")
+    public List<Book> searchBookByGenre(@RequestParam(value = "q") String genre) {
+        List<Book> books = booksRepository.findAll();
+        ArrayList<Book> list = new ArrayList<Book>();
+        for (Book book : books) {
+            if (book.getGenre().equals(genre)) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
 
 }
