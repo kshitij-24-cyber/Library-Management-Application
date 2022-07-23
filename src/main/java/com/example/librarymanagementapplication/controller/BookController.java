@@ -13,8 +13,7 @@ import com.example.librarymanagementapplication.repository.UserRepository;
 import com.example.librarymanagementapplication.util.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class BookController {
 
     BookValidator bookValidator = new BookValidator();
 
-   // this api will fetch all the books stored in the database by the user
+    // this api will fetch all the books stored in the database by the user
     @GetMapping("/books")
     List<Book> findAllBooks() {
         List<Book> list = new ArrayList<>();
@@ -44,5 +43,15 @@ public class BookController {
         return list;
     }
 
+    // this API will addBook to the Database
+    @PostMapping("/AddBook")
+    @ResponseStatus(HttpStatus.CREATED)
+    Book newBook(@RequestBody Book newBook) {
+        if (bookValidator.isValid(newBook)) {
+            return booksRepository.save(newBook);
+        } else {
+            return null;
+        }
+    }
 
 }
