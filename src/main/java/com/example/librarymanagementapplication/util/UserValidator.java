@@ -7,7 +7,7 @@ package com.example.librarymanagementapplication.util;/*
 import com.example.librarymanagementapplication.model.User;
 
 public class UserValidator {
-    public boolean isValid(User user) {
+    public static boolean isValid(User user) {
         return user.getName() != "" && user.getName() != null;
     }
 

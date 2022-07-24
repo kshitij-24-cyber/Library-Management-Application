@@ -58,7 +58,7 @@ public class BookController {
     @GetMapping(value = "/searchBookByAuthor")
     public List<Book> searchBookByAuthor(@RequestParam(value = "q") String author) {
         List<Book> books = booksRepository.findAll();
-        ArrayList<Book> list = new ArrayList<Book>();
+        ArrayList<Book> list = new ArrayList<>();
         for (Book book : books) {
             if (book.getAuthor().equals(author)) {
                 list.add(book);
@@ -70,7 +70,7 @@ public class BookController {
     @GetMapping(value = "/searchBookByGenre")
     public List<Book> searchBookByGenre(@RequestParam(value = "q") String genre) {
         List<Book> books = booksRepository.findAll();
-        ArrayList<Book> list = new ArrayList<Book>();
+        ArrayList<Book> list = new ArrayList<>();
         for (Book book : books) {
             if (book.getGenre().equals(genre)) {
                 list.add(book);
