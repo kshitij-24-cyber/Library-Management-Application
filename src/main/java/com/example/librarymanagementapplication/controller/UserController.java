@@ -20,16 +20,16 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/getAllUsers")
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
+
     @PostMapping("/Adduser")
     @ResponseStatus(HttpStatus.CREATED)
     public User addUser(@RequestBody User newUser) throws Exception {
-        if(UserValidator.isValid(newUser)){
+        if (UserValidator.isValid(newUser)) {
             return userRepository.save(newUser);
-        }
-        else throw new Exception();
+        } else throw new Exception();
     }
 
     @GetMapping("/GetUsersById/{id}")
